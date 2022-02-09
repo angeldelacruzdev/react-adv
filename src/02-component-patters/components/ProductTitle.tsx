@@ -13,7 +13,7 @@ const ProductTitle = ({ title, className, style }: Props) => {
 
   return (
     <span style={style} className={`${styles.productDescription} ${className}`}>
-      {title ? title : product.title}
+      {title ? title : product?.title}
     </span>
   );
 };

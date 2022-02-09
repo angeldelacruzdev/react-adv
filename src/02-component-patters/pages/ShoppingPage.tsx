@@ -1,14 +1,13 @@
+
 import { ProductCard } from "./../components/index";
-import { ProductImage, ProductButtons, ProductTitle } from "./../components";
-
+ 
 import "./../styles/custom-styles.css";
-
-const products = {
-  id: "1",
-  title: "Coffee Mug",
-};
+import useShoppingCart from "./../hooks/useShoppingCart";
+import { products } from './../data/products';
 
 const ShoppingPage = () => {
+  const { onProductCountChange, shoppingCart } = useShoppingCart();
+
   return (
     <div>
       <h1>Shopping Page</h1>
@@ -20,17 +19,37 @@ const ShoppingPage = () => {
           flexWrap: "wrap",
         }}
       >
-        <ProductCard product={products}>
-          <ProductCard.Image />
-          <ProductCard.Title title="Coffe Mug" />
-          <ProductCard.Buttons />
-        </ProductCard>
+        {products.map((item) => (
+          <ProductCard
+            key={item.id}
+            product={item}
+            onChange={onProductCountChange}
+            value={shoppingCart[item.id]?.count || 0}
+          >
+            <ProductCard.Image img={item.img} />
+            <ProductCard.Title />
+            <ProductCard.Buttons />
+          </ProductCard>
+        ))}
+      </div>
 
-        <ProductCard product={products} className="bg-dark">
-          <ProductImage className="custom-image" />
-          <ProductTitle title="Coffe Mug" className="text-white" />
-          <ProductButtons className="custom-buttons" />
-        </ProductCard>
+      <div className="shopping-card">
+        {Object.entries(shoppingCart).map(([key, product]) => (
+          <ProductCard
+            key={key}
+            product={product}
+            className="bg-dark text-white"
+            style={{ width: "150px" }}
+            value={product.count}
+            onChange={onProductCountChange}
+          >
+            <ProductCard.Image img={product.img} />
+            <ProductCard.Buttons />
+          </ProductCard>
+        ))}
+      </div>
+      <div>
+        <code>{JSON.stringify(shoppingCart, null, 5)}</code>
       </div>
     </div>
   );

@@ -11,12 +11,13 @@ interface Props {
 
 const ProductImage = ({ img, className, style }: Props) => {
   const { product } = useContext(ProductContext);
+
   let showImage: string;
 
   if (img) {
     showImage = img;
-  } else if (product.img) {
-    showImage = product.img;
+  } else if (product?.img) {
+    showImage = product?.img;
   } else {
     showImage = noImage;
   }

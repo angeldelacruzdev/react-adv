@@ -10,8 +10,15 @@
   width: calc(100%-20px);
   border-radius: 20px;
 }
+
 .custom-buttons button,
 .custom-buttons div {
   color: white;
   border-color: white;
+}
+
+.shopping-card {
+  position: fixed;
+  right: 10px;
+  top: 0;
 }
